@@ -1,50 +1,42 @@
-# Kỹ Năng Nạp Syslog
+---
+name: syslog_ingest
+description: >
+  Dùng khi cần nạp và chuẩn hóa syslog SSH từ file log thô sang JSONL.
+  Kích hoạt khi có yêu cầu: parse syslog, chuẩn hóa log SSH, tạo JSONL record,
+  trích xuất trường từ SSH.log, hoặc chạy bước ingest của pipeline.
+---
 
-Mục đích: parse file `data/input/SSH.log` thành các record chuẩn hóa để phục
-vụ hệ thống Syslog Anomaly Ensemble Detector.
+# Nạp Syslog
 
-## File Phụ Trách
+Parse log SSH thô thành các record JSONL đã chuẩn hóa để phục vụ các bước
+embedding, chấm điểm centroid, KNN và ensemble.
 
-- Input: `data/input/SSH.log`
-- Script: `scripts/01_prepare_syslog.py`
-- Output: `data/processed/ssh_records.jsonl`
+## Setup
 
-## Schema Record
+Không cần cài đặt thêm. Sử dụng Python 3 và thư viện trong `requirements.txt`.
 
-Mỗi dòng JSONL cần có các trường:
-
-- `record_id`
-- `raw`
-- `parse_status`
-- `timestamp`
-- `host`
-- `process`
-- `pid`
-- `message`
-- `event_type`
-- `severity`
-- `source_ip`
-- `all_ips`
-- `port`
-- `user`
-- `rhost`
-- `repeat_count`
-- `text_for_embedding`
-
-## Lệnh Chạy
+## Usage
 
 ```bash
 python3 scripts/01_prepare_syslog.py
 python3 scripts/01_prepare_syslog.py --max-records 1000
-```
-
-Mặc định script sẽ tự lấy năm hiện tại của máy để gắn vào timestamp, vì syslog
-RFC3164 không chứa thông tin năm. Chỉ dùng `--year` khi biết chắc log thuộc một
-năm cụ thể:
-
-```bash
 python3 scripts/01_prepare_syslog.py --year 2016
 ```
 
-Dòng log không nhận diện được vẫn phải được ghi ra với
-`parse_status="unparsed"` thay vì làm dừng toàn bộ quá trình xử lý.
+Chạy từ thư mục gốc của dự án. Có thể ghi đè đường dẫn mặc định bằng các tham số
+`--input`, `--output`, `--year`, và `--max-records`.
+
+## Output
+
+Sinh file JSONL tại `data/processed/ssh_records.jsonl`.
+Mỗi dòng là một record đã chuẩn hóa, bao gồm các trường như `record_id`,
+`raw`, `parse_status`, `timestamp`, `host`, `process`, `pid`, `message`,
+`event_type`, `severity`, `source_ip`, `all_ips`, `port`, `user`, `rhost`,
+`repeat_count`, và `text_for_embedding`.
+
+## Notes
+
+- Mặc định script lấy năm hiện tại của máy để điền vào timestamp
+- Chỉ dùng `--year` khi chắc chắn toàn bộ log thuộc một năm cụ thể
+- Log không parse được vẫn phải được ghi ra với `parse_status="unparsed"`
+- `--max-records` hữu ích khi muốn thử nhanh trên một tập nhỏ
