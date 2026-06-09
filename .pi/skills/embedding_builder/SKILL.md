@@ -1,29 +1,41 @@
-# Kỹ Năng Tạo Embedding
+---
+name: embedding_builder
+description: >
+  Dùng khi cần tạo embedding cho các record SSH syslog đã chuẩn hóa,
+  chuyển văn bản log thành vector số để phục vụ phát hiện bất thường.
+  Kích hoạt khi có yêu cầu: tạo embedding, sinh vector từ syslog,
+  mã hóa log thành vector, hoặc chạy bước embedding của pipeline.
+---
 
-Mục đích: chuyển các record SSH syslog đã parse thành vector dense để phục vụ
-chấm điểm bất thường.
+# Tạo Embedding
 
-## File Phụ Trách
+Sinh vector dense từ các record SSH syslog đã xử lý để dùng cho các bước
+chấm điểm và phát hiện bất thường.
 
-- Input: `data/processed/ssh_records.jsonl`
-- Script: `scripts/02_embed_syslog.py`
-- Output: `data/embeddings/ssh_embeddings.npy`
+## Setup
 
-## Phương Pháp Baseline
+Không cần cài đặt thêm. Sử dụng Python 3 và thư viện trong `requirements.txt`.
 
-Embedding baseline chạy cục bộ và cho kết quả ổn định:
-
-1. Đọc trường `text_for_embedding` từ từng dòng JSONL.
-2. Tách nội dung log thành unigram và bigram.
-3. Dùng stable feature hashing để đưa token vào số chiều cố định.
-4. Chuẩn hóa L2 cho từng vector.
-5. Ghi vector `float32` ra file `.npy` tương thích với NumPy.
-
-
-## Lệnh Chạy
+## Usage
 
 ```bash
 python3 scripts/02_embed_syslog.py
 python3 scripts/02_embed_syslog.py --dimensions 64
 python3 scripts/02_embed_syslog.py --max-records 1000
 ```
+
+Chạy từ thư mục gốc của dự án. Có thể ghi đè đường dẫn mặc định bằng các tham số
+`--records`, `--output`, `--text-field`, `--dimensions`, và `--max-records`.
+
+## Output
+
+Sinh file NumPy `.npy` tại `data/embeddings/ssh_embeddings.npy`.
+Mỗi phần tử là một vector `float32` đã chuẩn hóa L2, tương ứng với một record
+trong `data/processed/ssh_records.jsonl`.
+
+## Notes
+
+- Dùng baseline feature hashing cục bộ, không cần gọi model bên ngoài
+- Mặc định đọc trường `text_for_embedding` từ mỗi record JSONL
+- `--dimensions` phải là số dương
+- `--max-records` hữu ích khi muốn thử nhanh trên tập dữ liệu nhỏ
