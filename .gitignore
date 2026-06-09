@@ -1,3 +1,6 @@
 .env
 logs/
 .venv/
+data/processed/*.jsonl
+data/embeddings/*.npy
+triage/*.json
