@@ -1,5 +1,5 @@
 ---
-name: ensemble_voter
+name: ensemble-voter
 description: >
   Dùng khi cần kết hợp các điểm dị thường từ hai mô hình độc lập (Centroid và KNN) 
   để ra quyết định cuối cùng (Ensemble Voting) và lọc ra danh sách các log đáng ngờ nhất.
@@ -17,13 +17,13 @@ Sử dụng Python 3 và thư viện lõi `numpy`. Không yêu cầu cài đặt
 ## Usage
 
 ```bash
-python3 scripts/05_ensemble_vote.py --centroid triage/centroid_scores.json --knn triage/knn_scores.json --output triage/ensemble_anomalies.json
+python3 scripts/05_ensemble_vote.py --centroid triage/centroid_scores.json --knn triage/knn_scores.json --output triage/ensemble_anomalies.json --percentile 95
 ```
 ```bash
-python3 scripts/05_ensemble_vote.py --centroid triage/<input_stem>_centroid_scores.json --knn triage/<input_stem>_knn_scores.json --output triage/<input_stem>_ensemble_anomalies.json
+python3 scripts/05_ensemble_vote.py --centroid triage/<input_stem>_centroid_scores.json --knn triage/<input_stem>_knn_scores.json --output triage/<input_stem>_ensemble_anomalies.json --percentile 95
 ```
 
-Chạy từ thư mục gốc của dự án. Nhận đầu vào thông qua hai tham số bắt buộc là `--centroid` và `--knn`.
+Chạy từ thư mục gốc của dự án. Nhận đầu vào thông qua hai tham số bắt buộc là `--centroid` và `--knn`. Có thể chỉnh ngưỡng lọc bằng `--percentile`, mặc định là `95`.
 
 ## Input từ prompt
 
@@ -33,7 +33,7 @@ Chạy từ thư mục gốc của dự án. Nhận đầu vào thông qua hai t
 ## Output
 
 Sinh file JSON tại `triage/<input_stem>_ensemble_anomalies.json`.
-Đây là danh sách các log nghi vấn cao (nằm ở Percentile thứ 95 trở lên), được sắp xếp theo thứ tự nguy hiểm giảm dần. Mỗi phần tử chứa đầy đủ bộ 3 chỉ số: `centroid_score`, `knn_score`, và `ensemble_score`.
+Đây là danh sách các log nghi vấn cao (mặc định nằm ở Percentile thứ 95 trở lên), được sắp xếp theo thứ tự nguy hiểm giảm dần. Mỗi phần tử chứa đầy đủ bộ 3 chỉ số: `centroid_score`, `knn_score`, và `ensemble_score`.
 
 ## Notes
 

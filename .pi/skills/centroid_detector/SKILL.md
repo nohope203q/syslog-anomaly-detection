@@ -1,5 +1,5 @@
 ---
-name: centroid_detector
+name: centroid-detector
 description: >
   Dùng khi cần chấm điểm bất thường (anomaly score) cho syslog bằng cách 
   đo khoảng cách từ log tới vector trung tâm (Centroid). 

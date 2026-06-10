@@ -1,5 +1,5 @@
 ---
-name: embedding_builder
+name: embedding-builder
 description: >
   Dùng khi cần tạo embedding cho các record SSH syslog đã chuẩn hóa từ đúng
   file input/pipeline đang được yêu cầu,
