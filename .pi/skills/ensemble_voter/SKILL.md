@@ -1,31 +1,41 @@
 ---
 name: ensemble_voter
 description: >
-  Dùng khi cần kết hợp các điểm dị thường từ hai model độc lập (Centroid và KNN) 
-  để ra quyết định cuối cùng (Ensemble Voting) và lọc ra top các log đáng ngờ nhất.
-  Kích hoạt khi: gộp điểm anomaly, chạy ensemble, hoặc chốt kết quả detection.
+  Dùng khi cần kết hợp các điểm dị thường từ hai mô hình độc lập (Centroid và KNN) 
+  để ra quyết định cuối cùng (Ensemble Voting) và lọc ra danh sách các log đáng ngờ nhất.
+  Kích hoạt khi có yêu cầu: gộp điểm anomaly, chạy mô hình ensemble, hoặc chốt kết quả detection cho một file log cụ thể.
 ---
 
 # Hội Đồng Phán Xử (Ensemble Voter)
 
-Gộp điểm từ mô hình Centroid và KNN (sử dụng Min-Max Scaling đưa về thang 0-1) để tính điểm trung bình `ensemble_score`. Cuối cùng, lọc ra top 5% các dòng log có điểm dị thường cao nhất làm kết quả nghi vấn.
+Đồng bộ và chuẩn hóa điểm số từ hai thuật toán Centroid và KNN bằng phương pháp Min-Max Scaling (đưa về thang đo chuẩn từ 0 đến 1). Sau đó, tính điểm trung bình `ensemble_score` và áp bộ lọc nhằm trích xuất ra top 5% các dòng log có hành vi dị thường, nguy hiểm nhất.
 
 ## Setup
 
-Không cần cài thêm thư viện ML nặng, chỉ cần Python 3 và `numpy`.
+Sử dụng Python 3 và thư viện lõi `numpy`. Không yêu cầu cài đặt thêm các thư viện học máy cồng kềnh.
 
 ## Usage
 
 ```bash
 python3 scripts/05_ensemble_vote.py --centroid triage/centroid_scores.json --knn triage/knn_scores.json --output triage/ensemble_anomalies.json
 ```
+```bash
+python3 scripts/05_ensemble_vote.py --centroid triage/<input_stem>_centroid_scores.json --knn triage/<input_stem>_knn_scores.json --output triage/<input_stem>_ensemble_anomalies.json
+```
+
+Chạy từ thư mục gốc của dự án. Nhận đầu vào thông qua hai tham số bắt buộc là `--centroid` và `--knn`.
+
+## Input từ prompt
+
+- Luôn lấy chính xác hai file kết quả trung gian từ bước `centroid_detector` và `knn_detector` vừa thực hiện thành công để truyền vào làm tham số.
+- Đảm bảo file kết quả cuối cùng giữ nguyên tiền tố để phân biệt giữa các luồng log khác nhau. Quy ước khuyến nghị: `triage/<input_stem>_ensemble_anomalies.json`.
 
 ## Output
 
-Sinh file JSON tại `triage/ensemble_anomalies.json`.
-Danh sách các log được sắp xếp từ mức độ nguy hiểm giảm dần. Mỗi record chứa đủ cả 3 loại điểm: `centroid_score`, `knn_score` và `ensemble_score`.
+Sinh file JSON tại `triage/<input_stem>_ensemble_anomalies.json`.
+Đây là danh sách các log nghi vấn cao (nằm ở Percentile thứ 95 trở lên), được sắp xếp theo thứ tự nguy hiểm giảm dần. Mỗi phần tử chứa đầy đủ bộ 3 chỉ số: `centroid_score`, `knn_score`, và `ensemble_score`.
 
 ## Notes
 
-- Yêu cầu tiên quyết: Số lượng record trong file đầu ra của Centroid và KNN phải khớp nhau hoàn toàn (đã được đồng bộ ở mức 100.000 dòng).
-- Chỉ lấy các giá trị nằm trên Percentile thứ 95 (Top 5% nguy hiểm).
+- Yêu cầu tiên quyết: Số lượng phần tử trong hai file đầu vào (Centroid và KNN) phải khớp nhau hoàn toàn, không được lệch dòng.
+- Đầu ra của file này sẽ là dữ liệu đầu vào trực tiếp cho tầng giải thích ngôn ngữ tự nhiên (Phase tiếp theo của hệ thống).

@@ -4,12 +4,19 @@ import os
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-def score_knn(records_path, embeddings_path, k, output_path):
-    print(f"[*] Đang chạy KNN Detector (k={k}, giới hạn 100.000 dòng)...")
-    embeddings = np.load(embeddings_path)[:100000]
+def score_knn(records_path, embeddings_path, k, output_path, limit=None):
+    print(f"[*] Đang chạy KNN Detector (k={k})" + (f" (giới hạn {limit} dòng)..." if limit else "..."))
     
+    embeddings = np.load(embeddings_path)
+    if limit:
+        embeddings = embeddings[:limit]
+        
     with open(records_path, 'r', encoding='utf-8') as f:
-        records = [json.loads(line) for line in f][:100000]
+        records = []
+        for i, line in enumerate(f):
+            if limit and i >= limit:
+                break
+            records.append(json.loads(line))
 
     nbrs = NearestNeighbors(n_neighbors=k, algorithm='brute', n_jobs=-1).fit(embeddings)
     distances, _ = nbrs.kneighbors(embeddings)
@@ -30,5 +37,6 @@ if __name__ == "__main__":
     parser.add_argument("--embeddings", required=True)
     parser.add_argument("--k", type=int, default=5)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--limit", type=int, default=None, help="Số lượng dòng tối đa cần xử lý")
     args = parser.parse_args()
-    score_knn(args.records, args.embeddings, args.k, args.output)
+    score_knn(args.records, args.embeddings, args.k, args.output, args.limit)
