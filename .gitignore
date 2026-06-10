@@ -3,6 +3,7 @@ logs/
 .venv/
 data/processed/*.jsonl
 data/embeddings/*.npy
+results/*
 triage/*.json
 __pycache__/
 *.pt

@@ -1,0 +1,16 @@
+{
+  "project": "Syslog Anomaly Ensemble Detector",
+  "pipeline": [
+    "syslog-ingest",
+    "embedding-builder",
+    "parallel_scoring: centroid-detector + knn-detector",
+    "ensemble-voter",
+    "deepseek-explainer"
+  ],
+  "notes": [
+    "Centroid and KNN are independent after embeddings are created.",
+    "Only top-k ensemble anomalies should be sent to the explanation model.",
+    "Do not include .env or API keys in the submitted ZIP."
+  ],
+  "last_updated": "2026-06-10"
+}

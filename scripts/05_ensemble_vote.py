@@ -3,7 +3,7 @@ import json
 import os
 import numpy as np
 
-def ensemble_vote(centroid_path, knn_path, output_path):
+def ensemble_vote(centroid_path, knn_path, output_path, percentile=95.0):
     print("[*] Đang gộp điểm (Ensemble Voting)...")
     
     with open(centroid_path, 'r') as f: c_data = json.load(f)
@@ -17,8 +17,8 @@ def ensemble_vote(centroid_path, knn_path, output_path):
     k_norm = (k_scores - k_scores.min()) / (k_scores.max() - k_scores.min() + 1e-9)
     ensemble_scores = (c_norm + k_norm) / 2
 
-    # Lấy Top 5% nguy hiểm nhất (ngưỡng 95)
-    threshold = np.percentile(ensemble_scores, 95)
+    # Lấy nhóm nguy hiểm nhất theo ngưỡng percentile cấu hình.
+    threshold = np.percentile(ensemble_scores, percentile)
     anomalies = []
     
     for i in range(len(c_data)):
@@ -34,12 +34,13 @@ def ensemble_vote(centroid_path, knn_path, output_path):
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(anomalies, f, indent=2)
 
-    print(f"[+] Phát hiện {len(anomalies)} log DỊ THƯỜNG. Lưu tại: {output_path}")
+    print(f"[+] Phát hiện {len(anomalies)} log DỊ THƯỜNG ở percentile {percentile}. Lưu tại: {output_path}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--centroid", required=True)
     parser.add_argument("--knn", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--percentile", type=float, default=95.0)
     args = parser.parse_args()
-    ensemble_vote(args.centroid, args.knn, args.output)
+    ensemble_vote(args.centroid, args.knn, args.output, args.percentile)

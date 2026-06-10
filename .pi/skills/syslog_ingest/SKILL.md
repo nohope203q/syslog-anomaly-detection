@@ -1,5 +1,5 @@
 ---
-name: syslog_ingest
+name: syslog-ingest
 description: >
   Dùng khi cần nạp và chuẩn hóa syslog SSH từ file log thô bất kỳ sang JSONL.
   Kích hoạt khi có yêu cầu: parse syslog, chuẩn hóa log SSH, tạo JSONL record,

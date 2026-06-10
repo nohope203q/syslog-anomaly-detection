@@ -1,5 +1,5 @@
 ---
-name: knn_detector
+name: knn-detector
 description: >
   Dùng khi cần phát hiện điểm dị thường (outliers) bằng thuật toán 
   K-Nearest Neighbors (KNN) cho tập dữ liệu syslog. 
