@@ -13,14 +13,22 @@ Bạn là agent phân tích log bảo mật. Nhiệm vụ là chạy đúng pipe
 duyệt, đọc dữ liệu trong project, sinh evidence dạng JSON/Markdown và không bịa
 kết quả ngoài dữ liệu có thật.
 
+## Specialist Agents
+
+- `syslog-preprocess-agent`: nạp syslog và tạo embeddings.
+- `parallel-detector-agent`: chạy Centroid và KNN song song trên cùng
+  embeddings.
+- `ensemble-explanation-agent`: gộp điểm, chọn top-k anomaly và tạo giải thích
+  tiếng Việt.
+
 ## Scope
 
 - Đọc syslog thô từ `data/input/` hoặc đường dẫn người dùng chỉ định.
-- Chuẩn hóa log sang JSONL bằng `scripts/01_prepare_syslog.py`.
-- Tạo embedding bằng `scripts/02_embed_syslog.py`.
-- Chạy song song hai detector độc lập: `centroid-detector` và `knn-detector`.
-- Gộp điểm bằng `ensemble-voter`.
-- Chỉ giải thích top-k anomaly đã qua ensemble bằng `deepseek-explainer`.
+- Điều phối `syslog-preprocess-agent` để chuẩn hóa log và tạo embedding.
+- Điều phối `parallel-detector-agent` để chạy song song hai detector độc lập:
+  `centroid-detector` và `knn-detector`.
+- Điều phối `ensemble-explanation-agent` để gộp điểm bằng `ensemble-voter` và
+  giải thích top-k anomaly bằng `deepseek-explainer`.
 
 ## Rules
 

@@ -1,0 +1,62 @@
+Dec 10 06:58:01 LabSZ sshd[22001]: Server listening on 0.0.0.0 port 22.
+Dec 10 06:58:02 LabSZ sshd[22001]: Server listening on :: port 22.
+Dec 10 06:59:10 LabSZ sshd[22014]: Accepted publickey for admin from 10.0.0.12 port 51120 ssh2
+Dec 10 06:59:10 LabSZ sshd[22014]: pam_unix(sshd:session): session opened for user admin by (uid=0)
+Dec 10 07:00:01 LabSZ sshd[22031]: Failed password for invalid user oracle from 185.220.101.42 port 42011 ssh2
+Dec 10 07:00:04 LabSZ sshd[22033]: Failed password for invalid user postgres from 185.220.101.42 port 42018 ssh2
+Dec 10 07:00:07 LabSZ sshd[22035]: Failed password for invalid user test from 185.220.101.42 port 42027 ssh2
+Dec 10 07:00:10 LabSZ sshd[22037]: Failed password for invalid user admin from 185.220.101.42 port 42036 ssh2
+Dec 10 07:00:13 LabSZ sshd[22039]: Failed password for invalid user deploy from 185.220.101.42 port 42045 ssh2
+Dec 10 07:00:16 LabSZ sshd[22041]: Failed password for root from 185.220.101.42 port 42054 ssh2
+Dec 10 07:00:19 LabSZ sshd[22043]: Failed password for root from 185.220.101.42 port 42063 ssh2
+Dec 10 07:00:22 LabSZ sshd[22045]: Failed password for invalid user guest from 185.220.101.42 port 42072 ssh2
+Dec 10 07:00:24 LabSZ sshd[22045]: Disconnecting invalid user guest 185.220.101.42 port 42072: Too many authentication failures [preauth]
+Dec 10 07:01:02 LabSZ sshd[22060]: Accepted publickey for backup from 10.0.0.21 port 51230 ssh2
+Dec 10 07:01:03 LabSZ sshd[22060]: pam_unix(sshd:session): session opened for user backup by (uid=0)
+Dec 10 07:02:11 LabSZ sshd[22082]: Invalid user temp from 203.0.113.90 port 51510
+Dec 10 07:02:13 LabSZ sshd[22084]: Failed password for invalid user temp from 203.0.113.90 port 51510 ssh2
+Dec 10 07:02:15 LabSZ sshd[22086]: Invalid user support from 203.0.113.90 port 51519
+Dec 10 07:02:17 LabSZ sshd[22088]: Failed password for invalid user support from 203.0.113.90 port 51519 ssh2
+Dec 10 07:02:19 LabSZ sshd[22090]: Invalid user ubnt from 203.0.113.90 port 51528
+Dec 10 07:02:21 LabSZ sshd[22092]: Failed password for invalid user ubnt from 203.0.113.90 port 51528 ssh2
+Dec 10 07:03:03 LabSZ sshd[22110]: reverse mapping checking getaddrinfo for suspicious.example [198.51.100.44] failed - POSSIBLE BREAK-IN ATTEMPT!
+Dec 10 07:03:05 LabSZ sshd[22110]: Failed password for root from 198.51.100.44 port 39002 ssh2
+Dec 10 07:03:08 LabSZ sshd[22112]: Received disconnect from 198.51.100.44: 11: disconnected by user [preauth]
+Dec 10 07:04:20 LabSZ sshd[22130]: Accepted password for jsmith from 10.0.0.33 port 52311 ssh2
+Dec 10 07:04:21 LabSZ sshd[22130]: pam_unix(sshd:session): session opened for user jsmith by (uid=0)
+Dec 10 07:05:00 LabSZ sshd[22161]: Bad protocol version identification 'GET / HTTP/1.1' from 193.17.174.103 port 49152
+Dec 10 07:05:03 LabSZ sshd[22163]: Bad protocol version identification 'GET /wp-login.php HTTP/1.1' from 193.17.174.103 port 49157
+Dec 10 07:05:06 LabSZ sshd[22165]: Bad protocol version identification 'POST /cgi-bin/login.cgi HTTP/1.1' from 193.17.174.103 port 49163
+Dec 10 07:06:17 LabSZ sshd[22190]: Received disconnect from 52.80.34.196: 11: Bye Bye [preauth]
+Dec 10 07:06:22 LabSZ sshd[22192]: Did not receive identification string from 52.80.34.196
+Dec 10 07:07:40 LabSZ sshd[22220]: Accepted publickey for admin from 10.0.0.12 port 53120 ssh2
+Dec 10 07:07:41 LabSZ sshd[22220]: pam_unix(sshd:session): session opened for user admin by (uid=0)
+Dec 10 07:08:02 LabSZ sshd[22241]: Failed password for invalid user hadoop from 45.155.205.233 port 60010 ssh2
+Dec 10 07:08:04 LabSZ sshd[22243]: Failed password for invalid user mysql from 45.155.205.233 port 60021 ssh2
+Dec 10 07:08:06 LabSZ sshd[22245]: Failed password for invalid user redis from 45.155.205.233 port 60032 ssh2
+Dec 10 07:08:08 LabSZ sshd[22247]: Failed password for invalid user elastic from 45.155.205.233 port 60043 ssh2
+Dec 10 07:08:10 LabSZ sshd[22249]: Failed password for invalid user git from 45.155.205.233 port 60054 ssh2
+Dec 10 07:08:12 LabSZ sshd[22251]: Failed password for invalid user docker from 45.155.205.233 port 60065 ssh2
+Dec 10 07:08:14 LabSZ sshd[22253]: Connection closed by invalid user docker 45.155.205.233 port 60065 [preauth]
+Dec 10 07:09:11 LabSZ sshd[22270]: Accepted password for devops from 203.0.113.90 port 51601 ssh2
+Dec 10 07:09:12 LabSZ sshd[22270]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Dec 10 07:09:35 LabSZ sshd[22270]: pam_unix(sshd:session): session closed for user devops
+Dec 10 07:10:01 LabSZ sshd[22302]: error: kex_exchange_identification: banner line contains invalid characters from 79.177.77.24 port 42424
+Dec 10 07:10:04 LabSZ sshd[22304]: Bad protocol version identification 'SSH-2.0' from 79.177.77.24 port 42425
+Dec 10 07:10:07 LabSZ sshd[22306]: Did not receive identification string from 79.177.77.24
+Dec 10 07:11:16 LabSZ sshd[22330]: Failed password for invalid user ftpuser from 91.240.118.172 port 55220 ssh2
+Dec 10 07:11:18 LabSZ sshd[22332]: Failed password for invalid user user from 91.240.118.172 port 55228 ssh2
+Dec 10 07:11:20 LabSZ sshd[22334]: Failed password for invalid user administrator from 91.240.118.172 port 55236 ssh2
+Dec 10 07:11:22 LabSZ sshd[22336]: Failed password for invalid user pi from 91.240.118.172 port 55244 ssh2
+Dec 10 07:11:24 LabSZ sshd[22338]: message repeated 4 times: [ Failed password for invalid user pi from 91.240.118.172 port 55244 ssh2]
+Dec 10 07:12:03 LabSZ sshd[22361]: Accepted publickey for backup from 10.0.0.21 port 54031 ssh2
+Dec 10 07:12:04 LabSZ sshd[22361]: pam_unix(sshd:session): session opened for user backup by (uid=0)
+Dec 10 07:12:41 LabSZ sshd[22390]: Accepted password for root from 203.0.113.90 port 51640 ssh2
+Dec 10 07:12:42 LabSZ sshd[22390]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Dec 10 07:12:58 LabSZ sshd[22390]: pam_unix(sshd:session): session closed for user root
+Dec 10 07:13:17 LabSZ sshd[22412]: Failed password for invalid user nagios from 66.240.236.119 port 60201 ssh2
+Dec 10 07:13:19 LabSZ sshd[22414]: Failed password for invalid user zabbix from 66.240.236.119 port 60210 ssh2
+Dec 10 07:13:21 LabSZ sshd[22416]: Failed password for invalid user splunk from 66.240.236.119 port 60219 ssh2
+Dec 10 07:13:23 LabSZ sshd[22418]: Disconnecting invalid user splunk 66.240.236.119 port 60219: Too many authentication failures [preauth]
+Dec 10 07:14:00 LabSZ sshd[22440]: Accepted publickey for admin from 10.0.0.12 port 55111 ssh2
+Dec 10 07:14:01 LabSZ sshd[22440]: pam_unix(sshd:session): session opened for user admin by (uid=0)

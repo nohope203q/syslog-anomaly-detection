@@ -9,15 +9,18 @@ description: >
 
 ## Chain Stages
 
-1. `syslog-ingest`
+1. `syslog-preprocess-agent`
+   - Skills:
+     - `syslog-ingest`
+     - `embedding-builder`
    - Input: `data/input/<input_file>.log`
    - Output: `data/processed/<input_stem>_records.jsonl`
-
-2. `embedding-builder`
-   - Input: JSONL records từ stage ingest
    - Output: `data/embeddings/<input_stem>_embeddings.npy`
 
-3. `parallel_scoring`
+2. `parallel-detector-agent`
+   - Skills:
+     - `centroid-detector`
+     - `knn-detector`
    - Nhánh A: `centroid-detector`
    - Nhánh B: `knn-detector`
    - Hai nhánh cùng đọc records + embeddings nhưng không phụ thuộc kết quả của
@@ -26,12 +29,12 @@ description: >
      - `triage/<input_stem>_centroid_scores.json`
      - `triage/<input_stem>_knn_scores.json`
 
-4. `ensemble-voter`
+3. `ensemble-explanation-agent`
+   - Skills:
+     - `ensemble-voter`
+     - `deepseek-explainer`
    - Input: hai file score từ stage song song
    - Output: `triage/<input_stem>_ensemble_anomalies.json`
-
-5. `deepseek-explainer`
-   - Input: top-k anomaly từ ensemble
    - Output:
      - `triage/<input_stem>_deepseek_explanations.json`
      - `results/<input_stem>_ket_qua.md`
