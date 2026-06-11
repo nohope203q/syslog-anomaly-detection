@@ -45,6 +45,17 @@ description: >
 python3 scripts/run_pipeline.py --input data/input/SSH.log --top-k 10 --knn-k 5 --threshold-percentile 95 --parallel
 ```
 
+## Execution Rule
+
+Khi người dùng yêu cầu "chạy đầy đủ pipeline", "phân tích file log", hoặc "lưu
+kết quả theo tiền tố", ưu tiên chạy `scripts/run_pipeline.py` thay vì tự gọi rời
+từng script. Runner này là nơi ghi audit log chính vào `logs/run_pipeline.log`
+và đảm bảo các phase dùng cùng input/output.
+
+Chỉ gọi từng script riêng khi người dùng yêu cầu chạy lại một phase cụ thể, ví
+dụ chỉ chạy lại `deepseek-explainer` từ file
+`triage/<input_stem>_ensemble_anomalies.json`.
+
 ## Evidence Rules
 
 - Mọi phase phải ghi output ra đúng thư mục `data/`, `triage/`, `logs/` hoặc
