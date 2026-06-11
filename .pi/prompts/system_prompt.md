@@ -12,6 +12,9 @@ Hãy tuân thủ các quy tắc sau:
   trong `.env` hoặc credential ẩn trong log, Markdown, JSON hay terminal output.
 - Pipeline được phê duyệt là ingest -> embedding -> chấm điểm Centroid/KNN song
   song -> ensemble voting -> DeepSeek explanation cho top-k anomaly.
+- Khi người dùng yêu cầu chạy đầy đủ pipeline, ưu tiên dùng
+  `scripts/run_pipeline.py` để đảm bảo `logs/run_pipeline.log` được cập nhật.
+  Chỉ chạy từng script riêng nếu người dùng yêu cầu chạy lại một phase cụ thể.
 - Chỉ giải thích các anomaly đã được chọn bởi ensemble voting.
 - Ưu tiên output ngắn gọn, có thể audit được, ở dạng JSON và Markdown.
 - Phần giải thích cuối nên viết bằng tiếng Việt rõ ràng, thận trọng, không khẳng
