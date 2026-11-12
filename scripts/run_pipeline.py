@@ -69,6 +69,7 @@ def main() -> None:
     explanations = Path(f"triage/{stem}_deepseek_explanations.json")
     markdown = args.write_markdown or Path(f"results/{stem}_ket_qua.md")
 
+    args.log.parent.mkdir(parents=True, exist_ok=True)
     args.log.write_text("", encoding="utf-8")
     log_line(args.log, f"START input={args.input} parallel={args.parallel}")
 
