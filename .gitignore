@@ -9,3 +9,6 @@ __pycache__/
 *.pt
 *.bin
 .vscode/
+# Dataset gốc (70MB) — tải bằng scripts/00_download_data.py, không commit
+data/input/SSH.log
+data/input/SSH[0-9].log
